@@ -2,7 +2,7 @@
 Feature: API testing for security functions
 
   Background: Setup test
-    Given url 'https://dev.insurance-api.tekschool-students.com'
+    Given url BASE_URL
     Given path '/api/token'
 
   @US_1
@@ -15,11 +15,12 @@ Feature: API testing for security functions
       }
       """
     When method post
+    Then print response
     Then status 200
-    And print response
+    And assert response.username=="supervisor"
 
   @US_2
-  Scenario Outline: Generate token with Invalid credentials
+  Scenario Outline: Generate token with Invalid credentials and validate errors
     Given request
       """
       {
@@ -28,9 +29,11 @@ Feature: API testing for security functions
       }
       """
     When method post
-    Then status <statusCode>
     Then print response
+    Then status <statusCode>
+    Then assert response.httpStatus == "<httpStatus>"
+    Then assert response.errorMessage == "<errorMessage>"
     Examples:
-      | username     | password       | statusCode |
-      | supervisorsx | tek_supervisor | 404        |
-      | supervisor   | wrong password | 400        |
+      | username     | password       | statusCode | httpStatus  | errorMessage                |
+      | supervisorsx | tek_supervisor | 404        | NOT_FOUND   | User supervisorsx not found |
+      | supervisor   | wrong password | 400        | BAD_REQUEST | Password not matched        |
