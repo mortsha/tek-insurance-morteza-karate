@@ -1,9 +1,9 @@
 @Regression
 Feature: Testing get all accounts @Get_All_Account
 
-#  Background: Setup test
-#    Given url BASE_URL
-#    Given path "/api/accounts/get-all-accounts"
+  Background: Setup test
+    Given url BASE_URL
+    Given path "/api/accounts/get-all-accounts"
 
 
   @Get_All_Account_1
@@ -13,8 +13,6 @@ Feature: Testing get all accounts @Get_All_Account
 
   @Get_All_Account_2
   Scenario: Testing /api/accounts/get-all-accounts with authentication
-    Given url BASE_URL
-    Given path "/api/accounts/get-all-accounts"
     * def generateTokenResult = callonce read('GenerateSupervisorToken.feature')
     Then print generateTokenResult
     * def validToken = "Bearer " +  generateTokenResult.response.token

@@ -10,7 +10,7 @@ Feature: Create New Account Functionality
 
     Given path '/api/accounts/add-primary-account'
     Given header Authorization = validToken
-    * def email = "happy8001234@gmail.com"
+    * def email = "happy654@gmail.com"
     Given request
       """
       {

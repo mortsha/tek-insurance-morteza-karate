@@ -1,3 +1,4 @@
+@Regression
 Feature: Addition information to account
 
   @Addition_Account
@@ -45,3 +46,23 @@ Feature: Addition information to account
     Then print response
     Then status 201
     Then assert response.licensePlate == lisencePlate
+
+
+    Given path "/api/accounts/add-account-address"
+    Given header Authorization = supervisorToken
+    Given param primaryPersonId = newAccountId
+    * def addressLine = "8760 Law St"
+    Given request
+      """
+      {
+        "addressType": "House",
+        "addressLine1": "#(addressLine)",
+        "city": "Richmond",
+        "state": "Virginia",
+        "postalCode": "98765",
+      }
+      """
+    When method post
+    Then print response
+    Then status 201
+    Then assert response.addressLine1 == addressLine

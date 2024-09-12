@@ -26,7 +26,7 @@ Feature: Testing Profile
     Then assert response.username == "<ExpectedUsername>"
     Then assert response.accountType == "<accountType>"
     Examples:
-      | username          | password       | ExpectedUsername  | accountType |
+      | Username          | Password       | ExpectedUsername  | accountType |
       | supervisor        | tek_supervisor | SUPERVISOR        | CSR         |
       | operator_readonly | Tek4u2024      | operator_readonly | CSR         |
       | mori12345         | mori1234       | mori12345         | CUSTOMER    |
