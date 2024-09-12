@@ -8,8 +8,8 @@ Feature: Testing Profile
     Given request
       """
       {
-        "username": "<username>",
-        "password": "<password>"
+        "username": "<Username>",
+        "password": "<Password>"
       }
       """
     When method post
