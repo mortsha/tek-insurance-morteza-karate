@@ -1,3 +1,4 @@
+@Regression
 Feature: Create and Delete account
 
   @Delete_Account

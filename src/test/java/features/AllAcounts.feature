@@ -1,3 +1,4 @@
+@Regression
 Feature: Testing get all accounts @Get_All_Account
 
 #  Background: Setup test
