@@ -25,3 +25,5 @@ Feature: Testing get account
     Then status 404
     Then assert response.errorMessage == "Account with id " + accountId + " not found"
 
+
+

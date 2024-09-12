@@ -1,5 +1,7 @@
+@Regression
 Feature: Generating Token with Supervisor User
 
+  @Token
   Scenario: Generate valid token
     Given url BASE_URL
     Given path "/api/token"
