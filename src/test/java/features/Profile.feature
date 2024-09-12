@@ -14,15 +14,19 @@ Feature: Testing Profile
       """
     When method post
     Then print response
+    * def validToken = response.token
     Then status 200
 
+
     Given path "/api/user/profile"
-    Given header Authorization = "Bearer " +  response.token
+    Given header Authorization = "Bearer " + validToken
     When method get
     Then print response
     Then status 200
     Then assert response.username == "<ExpectedUsername>"
-Examples:
-  | username|password | ExpectedUsername|
-  | supervisor|tek_supervisor |SUPERVISOR|
-  | operator_readonly|Tek4u2024 |operator_readonly|
+    Then assert response.accountType == "<accountType>"
+    Examples:
+      | username          | password       | ExpectedUsername  | accountType |
+      | supervisor        | tek_supervisor | SUPERVISOR        | CSR         |
+      | operator_readonly | Tek4u2024      | operator_readonly | CSR         |
+      | mori12345         | mori1234       | mori12345         | CUSTOMER    |
