@@ -3,7 +3,6 @@ Feature: End 2 End Account Testing
   @End2End
   Scenario: End 2 End Testing
     Given url BASE_URL
-
     * def createAccount = callonce read('CreateAccountWithRandomEmail.feature')
     * def newAccountId = createAccount.response.id
     * def tokenGenerationResult = callonce read('GenerateSupervisorToken.feature')
@@ -18,7 +17,6 @@ Feature: End 2 End Account Testing
     And assert response.primaryPerson.email == createAccount.response.email
     And assert response.primaryPerson.firstName == createAccount.response.firstName
     And assert response.primaryPerson.gender == createAccount.response.gender
-
 
     Given path "/api/accounts/delete-account"
     Given header Authorization = validToken
@@ -35,7 +33,3 @@ Feature: End 2 End Account Testing
     Then print response
     Then status 404
     Then assert response.errorMessage == "Account with id " + newAccountId + " not exist"
-
-
-
-
