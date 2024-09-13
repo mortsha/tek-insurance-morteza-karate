@@ -1,13 +1,14 @@
+@Regression   @End2End
 Feature: End 2 End Account Testing
-
-  @End2End
-  Scenario: End 2 End Testing
+  Background: Setup test
     Given url BASE_URL
     * def createAccount = callonce read('CreateAccountWithRandomEmail.feature')
     * def newAccountId = createAccount.response.id
     * def tokenGenerationResult = callonce read('GenerateSupervisorToken.feature')
     * def validToken = "Bearer " + tokenGenerationResult.response.token
 
+
+  Scenario: Testing get account
     Given path "/api/accounts/get-account"
     Given header Authorization = validToken
     Given param primaryPersonId = newAccountId
@@ -18,6 +19,7 @@ Feature: End 2 End Account Testing
     And assert response.primaryPerson.firstName == createAccount.response.firstName
     And assert response.primaryPerson.gender == createAccount.response.gender
 
+  Scenario: Testing delete account
     Given path "/api/accounts/delete-account"
     Given header Authorization = validToken
     Given param primaryPersonId = newAccountId
@@ -26,6 +28,7 @@ Feature: End 2 End Account Testing
     Then status 202
     Then assert response.message == "Account Successfully deleted"
 
+  Scenario: Testing delete account second attempt with same account
     Given path "/api/accounts/delete-account"
     Given header Authorization = validToken
     Given param primaryPersonId = newAccountId
