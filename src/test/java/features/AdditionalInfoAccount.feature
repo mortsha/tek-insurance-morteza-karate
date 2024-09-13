@@ -1,15 +1,14 @@
-@Regression
+@Regression @AddInfo
 Feature: Addition information to account
-
-  @Addition_Account
-  Scenario: Add car and phone to account
+  Background: setup test and create account
     Given url BASE_URL
     * def createAccount = callonce read('CreateAccountWithRandomEmail.feature')
     * def newAccountId = createAccount.response.id
-
     * def supervisorResult = callonce read('GenerateSupervisorToken.feature')
     * def supervisorToken = "Bearer " + supervisorResult.response.token
 
+
+  Scenario: Testing add phone
     Given path "/api/accounts/add-account-phone"
     Given header Authorization = supervisorToken
     Given param primaryPersonId = newAccountId
@@ -28,6 +27,7 @@ Feature: Addition information to account
     Then status 201
     Then assert response.phoneNumber == mobile
 
+  Scenario: Testing add car
 
     Given path "/api/accounts/add-account-car"
     Given header Authorization = supervisorToken
@@ -47,7 +47,7 @@ Feature: Addition information to account
     Then status 201
     Then assert response.licensePlate == lisencePlate
 
-
+  Scenario: Testing add address
     Given path "/api/accounts/add-account-address"
     Given header Authorization = supervisorToken
     Given param primaryPersonId = newAccountId
